@@ -19,14 +19,14 @@
 
 %macro connectedComponentsLabeling(inputDatasetEdges=,     /* Input dataset of type Edges     */
                                    edgeEndA=,              /* Variable from input dataset     */
-								   edgeEndB=,              /* Variable from input dataset     */
-								   outputDatasetVertices=, /* Output dataset of type Vertices */
-								   outputDatasetEdges=     /* Output dataset of type Edges    */
+				   edgeEndB=,              /* Variable from input dataset     */
+				   outputDatasetVertices=, /* Output dataset of type Vertices */
+				   outputDatasetEdges=     /* Output dataset of type Edges    */
                                   );
 
 	  %let startTime=%sysfunc(datetime());
 
-	  /*******************************************************************/
+      /*******************************************************************/
       /*                                                                 */
       /* Parameters validation                                           */
       /*                                                                 */
@@ -112,7 +112,7 @@
       from &inputDatasetEdges;
       quit;
 
-	  /*************************************************************************/
+      /*************************************************************************/
       /*                                                                       */
       /* Define the bijective application (R, see page 24)                     */
       /*                                                                       */
@@ -262,7 +262,7 @@
 
       run;
 
-	  /*************************************************************************/
+      /*************************************************************************/
       /*                                                                       */
       /* Create output dataset                                                 */
       /*                                                                       */
