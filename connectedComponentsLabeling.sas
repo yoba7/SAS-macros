@@ -6,7 +6,7 @@
 /* SAS Macro to identify connected components of a large undirected      */
 /* graph.                                                                */
 /*                                                                       */
-/* Auteur: Youri Baeyens                                                 */
+/* Author: Youri Baeyens                                                 */
 /*                                                                       */
 /*************************************************************************/
 /*************************************************************************/
