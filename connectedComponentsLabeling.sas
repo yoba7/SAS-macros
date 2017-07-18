@@ -24,7 +24,7 @@
 				   outputDatasetEdges=     /* Output dataset of type Edges    */
                                   );
 
-	  %let startTime=%sysfunc(datetime());
+      %let startTime=%sysfunc(datetime());
 
       /*******************************************************************/
       /*                                                                 */
@@ -33,9 +33,9 @@
       /*******************************************************************/
 
       %if not %sysfunc(exist(&inputDatasetEdges))
-	  %then %do;
-	          put ERROR: Input file &inputDatasetEdges does not exist;
-			  %goto exit;
+      %then %do;
+	      %put ERROR: Input file &inputDatasetEdges does not exist;
+	      %goto exit;
             %end;
 
       proc contents data=&inputDatasetEdges out=CG_000_CONTENTS noprint;
@@ -48,40 +48,40 @@
       where upcase(NAME) in (%upcase("&edgeEndA"),%upcase("&edgeEndB"));
       quit;
 
-	  %if &nb_variables_found ne 2
-	  %then %do;
-	          %put ERROR: Either &edgeEndA or &edgeEndB not present in &inputDatasetEdges;
-			  %goto exit;
+      %if &nb_variables_found ne 2
+      %then %do;
+              %put ERROR: Either &edgeEndA or &edgeEndB not present in &inputDatasetEdges;
+              %goto exit;
             %end;
 
-	  %if &nb_distinct_types ne 1
-	  %then %do;
-	          %put ERROR: &edgeEndA and &edgeEndB not of the same type in &inputDatasetEdges (one is numeric, the other is character);
-			  %goto exit;
+      %if &nb_distinct_types ne 1
+      %then %do;
+              %put ERROR: &edgeEndA and &edgeEndB not of the same type in &inputDatasetEdges (one is numeric, the other is character);
+              %goto exit;
             %end;
 
-	  %if &nb_distinct_length ne 1
-	  %then %do;
-	          %put ERROR: &edgeEndA and &edgeEndB not of the same length in &inputDatasetEdges;
-			  %goto exit;
+      %if &nb_distinct_length ne 1
+      %then %do;
+              %put ERROR: &edgeEndA and &edgeEndB not of the same length in &inputDatasetEdges;
+              %goto exit;
             %end;
 
-	  %if &length >16
-	  %then %do;
-	          %put ERROR: length of &edgeEndA and &edgeEndB in &inputDatasetEdges is greater than 16 (length is &length);
-			  %put ERROR: are you sure &edgeEndA and &edgeEndB are id variables?;
-			  %goto exit;
+      %if &length >16
+      %then %do;
+             %put ERROR: length of &edgeEndA and &edgeEndB in &inputDatasetEdges is greater than 16 (length is &length);
+             %put ERROR: are you sure &edgeEndA and &edgeEndB are id variables?;
+             %goto exit;
             %end;
 
       %if "&outputDatasetVertices" eq "" and "&outputDatasetEdges" eq ""
-	  %then %do;
-	          %put ERROR: either outputDatasetVertices or outputDatasetEdges should be specified;
-			  %goto exit;
-            %end;
+      %then %do;
+             %put ERROR: either outputDatasetVertices or outputDatasetEdges should be specified;
+             %goto exit; 
+	    %end;
 
 
-	  %if &type=2 %then %let myType=$&length;
-	              %else %let myType=&length;
+      %if &type=2 %then %let myType=$&length;
+	          %else %let myType=&length;
 
       /*******************************************************************/
       /*                                                                 */
@@ -114,7 +114,7 @@
 
       /*************************************************************************/
       /*                                                                       */
-      /* Define the bijective application (R, see page 24)                     */
+      /* Define the bijective application                                      */
       /*                                                                       */
       /*************************************************************************/
 
@@ -156,7 +156,7 @@
 
       proc datasets library=work nolist;
 	  delete CG_000_CONTENTS;
-      delete CG_001_EDGES;
+          delete CG_001_EDGES;
 	  delete CG_001_VERTICES;
       run;
       quit;
@@ -270,7 +270,8 @@
 
 	  %if "&outputDatasetVertices" ne ""
 	  %then %do;
-	          data CG_005_FOREST(keep=nodeLabel_of_tree
+	  
+	       data CG_005_FOREST(keep=nodeLabel_of_tree
                                       rootLabel_of_tree
                                  );
 
@@ -291,12 +292,12 @@
 
               run;
 
-	          data &outputDatasetVertices(drop=rootLabel_of_tree);
-			   length connectedComponentLabel $16;
-	           set CG_005_FOREST;
-	           rename nodeLabel_of_tree=vertex;
-			   connectedComponentLabel=put(md5(rootLabel_of_tree),$hex16.);
-	          run;
+	      data &outputDatasetVertices(drop=rootLabel_of_tree);
+	      length connectedComponentLabel $16;
+	      set CG_005_FOREST;
+	      rename nodeLabel_of_tree=vertex;
+	             connectedComponentLabel=put(md5(rootLabel_of_tree),$hex16.);
+	      run;
 
              %end;
 
@@ -307,7 +308,7 @@
 			  select A.*, B.connectedComponentLabel
 			  from &inputDatasetEdges A, &outputDatasetVertices B
 			  where A.&edgeEndA=B.vertex;
-			  quit;
+                  quit;
 	        %end;
 
 proc datasets library=work nolist;
