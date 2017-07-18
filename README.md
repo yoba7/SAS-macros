@@ -27,9 +27,9 @@ run;
 
 %connectedComponentsLabeling(inputDatasetEdges=T001_graph,     
                              edgeEndA=from,              
-		                         edgeEndB=to,              
-		                         outputDatasetVertices=T002_vertices, 
-		                         outputDatasetEdges=T002_edges
+		             edgeEndB=to,              
+		             outputDatasetVertices=T002_vertices, 
+		             outputDatasetEdges=T002_edges
                             );
 
 ```
