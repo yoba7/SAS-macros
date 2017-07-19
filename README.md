@@ -2,6 +2,10 @@
 
 SAS Macro to identify connected components of a (very) large undirected graph.
 
+# Documentation
+
+See connectedComponentsLabeling.pdf
+
 # Example of use
 
 * Generate a random graph with 100.000 edges and around 100.000 nodes
